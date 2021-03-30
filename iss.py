@@ -29,14 +29,28 @@ def current_location():
     Function obtains current location of ISS and prints current
     lattitude and longitude along with a timestamp
     """
+    response = requests.get('http://api.open-notify.org/iss-now.json')
+    response_data = response.json()
+
+    iss_position = response_data["iss_position"]
+    current_time = time.ctime(response_data["timestamp"])
+
+    print("latitutde: ", iss_position["latitude"], ", longitude: ",
+          iss_position["longitude"], current_time)
 
 
-def indianapolis_time():
+def indianapolis_time():  # GET THIS FUNCTION WORKING!!!!!
     """
     Function to find out next time ISS will be overhead
     Indianapolis, Indiana and print out the time in
     human-readable format
     """
+    coordinates = {'latitutde': 39.791, 'longitude': -86.148003}
+    response = requests.get(
+        "http://api.open-notify.org/iss-pass.json", params=coordinates)
+    response_data = response.json()
+
+    print(response_data)
 
 
 def main():
