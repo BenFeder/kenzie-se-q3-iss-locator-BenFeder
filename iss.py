@@ -19,9 +19,9 @@ def astronauts_in_space():
 
     full_names_and_crafts = ""
     for person in response_data["people"]:
-        full_names_and_crafts += person["name"] + ": " + person["craft"] + ", "
+        full_names_and_crafts += person["name"] + ": " + person["craft"] + "; "
 
-    print(total_number, "total people.", full_names_and_crafts)
+    print(total_number, "total people in space: ", full_names_and_crafts)
 
 
 def current_location():
@@ -35,22 +35,24 @@ def current_location():
     iss_position = response_data["iss_position"]
     current_time = time.ctime(response_data["timestamp"])
 
-    print("latitutde: ", iss_position["latitude"], ", longitude: ",
-          iss_position["longitude"], current_time)
+    print("The ISS's current geolocation is at latitutde: ", iss_position["latitude"], ", and longitude: ",
+          iss_position["longitude"], " at ", current_time, ". ")
 
 
-def indianapolis_time():  # GET THIS FUNCTION WORKING!!!!!
+def indianapolis_time():
     """
     Function to find out next time ISS will be overhead
     Indianapolis, Indiana and print out the time in
     human-readable format
     """
-    coordinates = {'latitutde': 39.791, 'longitude': -86.148003}
+    coordinates = {'lat': 39.791, 'lon': -86.148003}
     response = requests.get(
         "http://api.open-notify.org/iss-pass.json", params=coordinates)
     response_data = response.json()
 
-    print(response_data)
+    pass_time = time.ctime(response_data["request"]["datetime"])
+
+    print("The ISS will pass Indianapolis next at: ", pass_time)
 
 
 def main():
